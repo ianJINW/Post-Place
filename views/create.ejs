@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+  <form class="post-form" action="/posts" method="POST" enctype="multipart/form-data">
+    <div class="uploader">
+      <label for="media">Upload Image/Video:</label>
+      <input type="file" name="media" id="media">
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <textarea name="content" id="auto-resize-textarea" style="overflow:hidden; resize:none;" required></textarea>
+    </div>
+
+    <button type="submit" class="bg-primary text-white p-2 rounded-lg"><i
+        class="fa-regular fa-paper-plane"></i></button>
+  </form>
+
+  <%- include('partials/footer') %>

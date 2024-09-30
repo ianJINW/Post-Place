@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Post It</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/main.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <% if (isLoggedIn) { %>
+        <% if (user) { %>
+          <p>Welcome, <a href="/users/<%- user.id %>">
+              <%= user.username || 'Guest' %>!
+            </a></p>
+
+          <% } %>
+            <% if (user.role && user.role==='admin' ) { %>
+              <a href="/protected">View Users</a>
+
+              <% } %>
+                <a href="/posts">Posts</a>
+                <a href="/logout">Log out</a>
+
+                <% } else { %>
+                  <div id="loginRegisterBtns">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                  </div>
+                  <% } %>
+    </nav>
+
+
+  </header>
+  <div class="container">
+    <% if (messages && messages.length>0) { %>
+      <% if (messages.error) { %>
+        <div class="flash flash-error">
+          <% messages.error.forEach((message)=> { %>
+            <p>
+              <%= message %>
+            </p>
+            <% }) %>
+        </div>
+        <% } %>
+
+          <% if (messages.success) { %>
+            <div class="flash flash-success">
+              <% messages.success.forEach((message)=> { %>
+                <p>
+                  <%= message %>
+                </p>
+                <% }) %>
+            </div>
+            <% } %>
+              <% } %>

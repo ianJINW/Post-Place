@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+  <fieldset>
+    <legend>Update</legend>
+    <form class="updater" action="/users/<%= user.id %>?_method=PATCH" method="POST">
+      <div>
+        <label for="email"></label>
+        <input type="email" name="email" placeholder="Update Email" value="<%= user.email %>" />
+      </div>
+      <div>
+        <label for="username"></label>
+        <input type="text" name="username" placeholder="Update Username:" value="<%= user.username %>" />
+      </div>
+      <div>
+        <label for="password"></label>
+        <input type="password" placeholder="New Password: " name="password" />
+      </div>
+      <input type="file" name="profile" id="dp">
+      <button type="submit">Update User</button>
+    </form>
+  </fieldset>
+  <fieldset>
+    <legend>Delete account</legend>
+    <form class="deleter" action="/users/<%= user.id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete User</button>
+    </form>
+
+  </fieldset>
+  <%- include('partials/footer') %>

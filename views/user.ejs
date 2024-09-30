@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+  <main class="user"
+    style="background-image: url('<%= user.profileImage ? user.profileImage : '/images/default-background.jpg' %>');">
+    <div class="profile">
+      <div class="dp">
+        <img src="<%= user.profileImage %>" alt="<%= user.username %>'s Profile Image" class="profile-photo" />
+      </div>
+      <div class="dp-info">
+        <p>
+          <%= user.email %>
+        </p>
+        <p>
+          <%= user.username %>
+        </p>
+      </div>
+    </div>
+    <a href="/account"><button>Account</button></a>
+  </main>
+  <%- include('partials/footer') %>
