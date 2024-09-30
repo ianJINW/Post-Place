@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+
+  <h2>All Users</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user=> { %>
+        <tr>
+          <td>
+            <%= user.id %>
+          </td>
+          <td>
+            <%= user.email %>
+          </td>
+          <td>
+            <%= user.username %>
+          </td>
+          <td>
+            <% if (user.profileImage) {user.profileImage}else{ %>
+              h
+              <% } %>
+          </td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+
+
+  <%- include('partials/footer') %>

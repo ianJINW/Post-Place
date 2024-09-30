@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+  <div class="auth container ">
+    <div class="login modal animate">
+
+      <fieldset>
+        <legend>Log in</legend>
+        <span class='close' title="Close Modal">&times;</span>
+        <form action="/login" method="POST">
+          <label for="username">Username</label>
+          <input required type="text" name="username" id="username" value='' placeholder="Username please">
+
+          <label for="password"></label>
+          <div class="pass">
+            <input required type="password" name="password" value='' placeholder="Input password please" id="lPassword">
+            <input type="button" class="show" value="Show">
+          </div>
+
+          <input type="submit" value="Log in">
+
+          <a href="#">Create new account</a>
+        </form>
+      </fieldset>
+    </div>
+
+    <div class="signup modal animate">
+      <fieldset>
+        <legend>Sign up</legend> <span class='close' title="Close Modal">&times;</span>
+
+        <form action="/register" method="POST" enctype="multipart/form-data">
+          <label for="email">Email</label>
+          <input required type="email" name="email" value='' id="email" placeholder="Email please">
+
+          <label for="username">Username</label>
+          <input required type="text" name="username" id="username" value='' placeholder="Username please">
+
+          <label for="password"></label>
+          <div class="pass">
+            <input required type="password" name="password" value='' placeholder="Input password please" id="sPassword">
+            <input type="button" class="show" value="Show">
+          </div>
+          <input type="file" name="profile" id="dp">
+          <input required type="submit" value="Register">
+
+          <a href="#">Have an account? Log in</a>
+        </form>
+      </fieldset>
+    </div>
+    <div class="modalCreate">
+      <input class="modalC" type="button" value="Don't have an account? Register.">
+      <input class="modalL" type="button" value="Have an account? Log in.">
+    </div>
+  </div>
+  <%- include('partials/footer') %>

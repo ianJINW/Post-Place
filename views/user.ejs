@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+  <main>
+    <div class="profile">
+      <div class="dp">
+        <img src="<%= user.profileImage %>" alt="Profile Image" class="profile-photo" />
+      </div>
+      <div class="dp-info">
+        <p>
+          <%= user.email %>
+        </p>
+        <p>
+          <%= user.username %>
+        </p>
+      </div>
+    </div>
+    <form class="updater" action="/users/<%= user.id %>?_method=PUT" method="POST">
+      <div>
+        <label for="email"></label>
+        <input type="email" name="email" placeholder="Update Email" value="<%= user.email %>" />
+      </div>
+      <div>
+        <label for="username"></label>
+        <input type="text" name="username" placeholder="Update Username:" value="<%= user.username %>" />
+      </div>
+      <div>
+        <label for="password"></label>
+        <input type="password" placeholder="New Password: " name="password" />
+      </div>
+      <input type="file" name="profile" id="dp">
+      <button type="submit">Update User</button>
+    </form>
+    <form class="deleter" action="/users/<%= user.id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete User</button>
+    </form>
+  </main>
+  <%- include('partials/footer') %>

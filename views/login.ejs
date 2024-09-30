@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+  <h2>Login</h2>
+
+  <form action="/login" method="POST">
+    <legend>Log in</legend>
+    <span class='close' title="Close Modal">&times;</span>
+    <label for="email"></label>
+    <input required type="email" name="email" id="email" placeholder="Email please">
+    <label for="password"></label>
+    <div class="pass">
+      <input required type="password" name="password" placeholder="Input password please" id="lPassword">
+      <input type="button" class="showP" value="Show">
+    </div>
+
+    <input type="submit" value="Log in">
+
+    <a href="#">Create new account</a>
+  </form>
+  </form>
+
+  <p>Don't have an account? <a href="/auth/register">Register</a></p>
+
+  <% if (typeof error !=='undefined' ) { %>
+    <p style="color:red;">
+      <%= error %>
+    </p>
+    <% } %>
+
+      <%- include('partials/footer') %>

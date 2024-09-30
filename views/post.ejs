@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+
+  <!-- Render posts -->
+  <div class="post-list">
+    <h1>All Posts</h1>
+
+    <% if (posts && posts.length> 0) { %>
+      <div class="post-c">
+        <% posts.forEach(post=> { %>
+
+          <div class="post-item">
+            <% if (post.user && post.user.username) { %>
+              <div class="dp">
+                <img src="<%= user.profileImage %>" alt="Profile Image" class="profile-photo" />
+                <a href="/users/<%- user.id %>">
+                  <%= post.user.username %> <br>
+                    <%= post.user.email %>
+
+                </a>
+              </div>
+
+              <% } else { %>
+                <p>Anonymous</p>
+                <% } %>
+
+                  <% if (post.mediaType==='image' || post.mediaType==='img' ) { %>
+                    <img src="<%= post.mediaPath %>" alt="Post Image">
+                    <% } else if (post.mediaType==='video' ) { %>
+                      <video controls>
+                        <source src="<%= post.mediaPath %>" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                      <% } %>
+                        <h2>
+                          <%= post.content %>
+                        </h2>
+
+          </div>
+          <% }) %>
+            <% } else { %>
+              <p>No posts available</p>
+              <% } %>
+
+                <a href="/create">Create post</a>
+      </div>
+
+  </div>
+
+
+  <%- include('partials/footer') %>
