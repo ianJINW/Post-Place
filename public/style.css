@@ -11,7 +11,7 @@ body {
 }
 
 /* In your main CSS file */
-@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
 	scroll-behavior: smooth;
@@ -80,7 +80,6 @@ header nav {
 	justify-content: center;
 	align-items: center;
 	overflow-y: scroll;
-
 }
 
 .container div {
@@ -154,7 +153,7 @@ input:active {
 	border: 1px dashed darkblue;
 }
 
-.container form input[type="submit"] {
+.container form input[type='submit'] {
 	width: max-content;
 	cursor: pointer;
 	border: 1px solid darkblue;
@@ -163,8 +162,8 @@ input:active {
 	text-align: center;
 }
 
-input[type="button"],
-input[type="submit"] {
+input[type='button'],
+input[type='submit'] {
 	flex-shrink: 1;
 }
 
@@ -238,9 +237,9 @@ form {
 	flex-direction: column;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
 	padding: 10px;
 	margin: 10px 0;
 	border: 1px solid #ccc;
@@ -326,6 +325,7 @@ tr:hover {
 	flex-direction: row;
 	justify-content: start;
 	align-items: center;
+	margin: 30px;
 	height: min(100px, 5dvh);
 }
 
@@ -334,7 +334,6 @@ tr:hover {
 	height: min(100px, 10dvw);
 	clip-path: circle();
 }
-
 
 .flash {
 	padding: 15px;
@@ -485,4 +484,45 @@ textarea {
 	clip-path: circle();
 	width: 6dvw;
 	height: 6dvw;
+}
+
+.user {
+	border-radius: 10px;
+	padding: 40px;
+	background-attachment: fixed;
+	background-position: center;
+	/* 	background-blend-mode: difference;
+ */
+	background-size: contain;
+	width: 60dvw;
+	height: 60dvh;
+}
+
+.user>* {
+	backdrop-filter: blur(50px) contrast(120%) sepia(30%);
+	padding: 40px;
+	border-radius: 10px;
+	flex: 1 1 50dvw;
+
+}
+
+.user a {
+	padding: 0;
+	margin: 0;
+	backdrop-filter: blur(0px);
+}
+
+.user .profile {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 30dvh;
+	justify-content: center;
+	align-items: center;
+}
+
+.user .profile div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

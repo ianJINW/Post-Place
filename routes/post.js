@@ -8,7 +8,8 @@ const upload = require("../config/multerPost");
 const uploadMiddleware = (req, res, next) => {
 	upload.single("media")(req, res, err => {
 		if (err) {
-			return res.status(400).send("Error uploading file: " + err.message);
+			req.flash("error", "Error uploading profile image");
+			return res.redirect("/register");
 		}
 		next();
 	});

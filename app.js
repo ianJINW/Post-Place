@@ -6,6 +6,7 @@ const flash = require("express-flash");
 const helmet = require("helmet");
 const passport = require("passport");
 const methodOverride = require("method-override");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const authroutes = require("./routes/auth");
 const postroutes = require("./routes/post");
@@ -20,8 +21,18 @@ if (!process.env.SESSION_SECRET || !process.env.PORT) {
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
+		store: new SequelizeStore({
+			db: sequelize
+		}),
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
+		cookie: {
+			secure: process.env.NODE_ENV === "production",
+			httpOnly: true,
+			checkExpirationInterval: 15 * 60 * 1000,
+			sameSite: "strict",
+			maxAge: 24 * 60 * 60 * 1000
+		}
 	})
 );
 
@@ -44,12 +55,12 @@ app.use(flash());
 app.use((req, res, next) => {
 	// Log flash messages before setting to res.locals
 	console.log("Flash before setting to res.locals:", req.flash());
-
+	res.locals.user = req.user;
+	res.locals.isLoggedIn = req.isAuthenticated();
 	res.locals.messages = req.flash(); // This should retrieve flash messages
 	console.log("Messages in res.locals:", res.locals.messages);
 
-	res.locals.user = req.user;
-	res.locals.isLoggedIn = req.isAuthenticated();
+	console.log(res.locals);
 	next();
 });
 
@@ -74,7 +85,8 @@ sequelize.sync().then(() => {
 	});
 });
 
-process.on("SIGINT", () => {
+process.on("SIGINT", async () => {
 	console.log("Server is shutting down...");
+	await sequelize.close();
 	process.exit();
 });

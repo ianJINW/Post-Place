@@ -31,6 +31,7 @@ module.exports = {
 			req.flash("success", "Post created successfully!");
 			res.redirect("/posts");
 		} catch (error) {
+			console.log(error);
 			req.flash("error", "Post not created");
 			res.redirect("/posts");
 		}
@@ -41,7 +42,7 @@ module.exports = {
 				include: [{ model: db.User, as: "user" }]
 			});
 
-			req.flash("success", "Posts retrievedd successfully");
+			req.flash("success", "Posts retrieved successfully");
 			res.render("post", { posts: posts });
 		} catch (error) {
 			req.flash("error", "Post not created");

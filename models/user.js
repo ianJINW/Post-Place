@@ -1,6 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 const bcrypt = require("bcryptjs");
+const roles = require("../config/roles");
 
 module.exports = (sequelize, DataTypes) => {
 	class User extends Model {
@@ -43,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
 			profileImage: {
 				type: DataTypes.STRING,
 				defaultValue: "/profileImages/default.jpg"
+			},
+			role: {
+				type: DataTypes.ENUM("admin", "user"),
+				allowNull: false,
+				defaultValue: "user"
 			}
 		},
 		{

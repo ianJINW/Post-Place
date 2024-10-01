@@ -19,14 +19,19 @@
             </a></p>
 
           <% } %>
-            <a href="/logout">Log out</a>
-            <a href="/protected">View Users</a>
-            <% } else { %>
-              <div id="loginRegisterBtns">
-                <a href="/login">Login</a>
-                <a href="/register">Register</a>
-              </div>
+            <% if (user.role && user.role==='admin' ) { %>
+              <a href="/protected">View Users</a>
+
               <% } %>
+                <a href="/posts">Posts</a>
+                <a href="/logout">Log out</a>
+
+                <% } else { %>
+                  <div id="loginRegisterBtns">
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                  </div>
+                  <% } %>
     </nav>
 
 

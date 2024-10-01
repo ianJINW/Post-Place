@@ -3,8 +3,6 @@ const passport = require("passport");
 
 module.exports = {
 	createUser: async (req, res) => {
-		console.log("Current flash messages:", res.locals.messages);
-
 		const { email, username, password } = req.body;
 
 		if (!email || !username || !password) {
@@ -12,6 +10,11 @@ module.exports = {
 
 			return res.redirect("/register");
 		}
+
+		/* 	if (!req.file) {
+			req.flash("Error uploading file: " + req.fileValidationError);
+			return res.redirect("/register");
+		} */
 
 		try {
 			let profileImage = req.file
@@ -37,21 +40,24 @@ module.exports = {
 				email,
 				username,
 				password,
-				profileImage
+				profileImage,
+				role: "user"
 			});
+
+			console.log("logged");
 
 			req.flash("success", "User registered successfully");
 
-			res.redirect("/home");
+			res.redirect("/login");
 		} catch (error) {
+			console.log("logged", error);
+
 			req.flash("error", "Error registering user");
 
 			res.redirect("/register");
 		}
 	},
 	getUsers: async (req, res) => {
-		console.log("Current flash messages:", res.locals.messages);
-
 		try {
 			const users = await db.User.findAll();
 
@@ -65,8 +71,6 @@ module.exports = {
 		}
 	},
 	getUserById: async (req, res) => {
-		console.log("Current flash messages:", res.locals.messages);
-
 		const { id } = req.params;
 
 		try {
@@ -94,8 +98,6 @@ module.exports = {
 		})(req, res, next);
 	},
 	logout: async (req, res) => {
-		console.log("Current flash messages:", res.locals.messages);
-
 		try {
 			req.logout(err => {
 				if (err) {
@@ -116,9 +118,41 @@ module.exports = {
 			res.redirect("/home");
 		}
 	},
-	deleteUser: async (req, res) => {
-		console.log("Current flash messages:", res.locals.messages);
+	updateUser: async (req, res) => {
+		const id = req.params;
+		const { email, username, password } = req.body;
+		let profileImagePath;
 
+		if (req.file) {
+			profileImagePath = `/media/profile-photos/${req.file.filename}`;
+		}
+
+		const updates = {};
+
+		if (email) updates.email = email;
+		if (username) updates.username = username;
+		if (password) updates.password = password;
+		if (profileImagePath) updates.profileImage = profileImagePath;
+		console.log(updates, "updates");
+
+		try {
+			const user = await db.User.update({ updates }, { where: { id } });
+			console.log(user, "user");
+
+			req.flash("success", "User updated successfully.");
+
+			res.redirect(`/users/${id}`);
+		} catch (error) {
+			console.error(error);
+
+			req.flash(
+				"error",
+				"An unexpected error occurred. Please try again later."
+			);
+			res.redirect("/account");
+		}
+	},
+	deleteUser: async (req, res) => {
 		const { id } = req.params;
 		try {
 			await db.User.destroy({ where: { id } });
