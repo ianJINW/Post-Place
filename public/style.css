@@ -333,6 +333,8 @@ tr:hover {
 	width: min(100px, 10dvw);
 	height: min(100px, 10dvw);
 	clip-path: circle();
+	object-position: top;
+	object-fit: cover;
 }
 
 .flash {
@@ -466,7 +468,9 @@ textarea {
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin: 10dvw;
+	object-fit: cover;
 	float: left;
+	object-position: top;
 }
 
 .updater,
@@ -478,6 +482,8 @@ textarea {
 	width: 6dvw;
 	height: 6dvw;
 	border-image: black;
+	object-fit: cover;
+	object-position: top;
 }
 
 .profile img {

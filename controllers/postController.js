@@ -42,6 +42,8 @@ module.exports = {
 				include: [{ model: db.User, as: "user" }]
 			});
 
+			posts.sort((a, b) => [new Date(b.createdAt) - new Date(a.createdAt)]);
+
 			req.flash("success", "Posts retrieved successfully");
 			res.render("post", { posts: posts });
 		} catch (error) {

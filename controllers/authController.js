@@ -44,14 +44,10 @@ module.exports = {
 				role: "user"
 			});
 
-			console.log("logged");
-
 			req.flash("success", "User registered successfully");
 
 			res.redirect("/login");
 		} catch (error) {
-			console.log("logged", error);
-
 			req.flash("error", "Error registering user");
 
 			res.redirect("/register");
@@ -85,7 +81,6 @@ module.exports = {
 			}
 		} catch (error) {
 			req.flash("error", "Failed to retrieve user.");
-
 			res.redirect("/users");
 		}
 	},
@@ -119,7 +114,8 @@ module.exports = {
 		}
 	},
 	updateUser: async (req, res) => {
-		const id = req.params;
+		let id = req.params.id;
+
 		const { email, username, password } = req.body;
 		let profileImagePath;
 
@@ -133,18 +129,14 @@ module.exports = {
 		if (username) updates.username = username;
 		if (password) updates.password = password;
 		if (profileImagePath) updates.profileImage = profileImagePath;
-		console.log(updates, "updates");
 
 		try {
 			const user = await db.User.update({ updates }, { where: { id } });
-			console.log(user, "user");
 
 			req.flash("success", "User updated successfully.");
 
 			res.redirect(`/users/${id}`);
 		} catch (error) {
-			console.error(error);
-
 			req.flash(
 				"error",
 				"An unexpected error occurred. Please try again later."
