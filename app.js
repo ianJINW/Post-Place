@@ -10,6 +10,7 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const authroutes = require("./routes/auth");
 const postroutes = require("./routes/post");
+const commentroutes = require("./routes/comment");
 const { sequelize } = require("./models");
 const app = express();
 
@@ -31,7 +32,7 @@ app.use(
 			httpOnly: true,
 			checkExpirationInterval: 15 * 60 * 1000,
 			sameSite: "strict",
-			maxAge: 24 * 60 * 60 * 1000
+			maxAge: 30 * 60 * 1000
 		}
 	})
 );
@@ -57,15 +58,15 @@ app.use((req, res, next) => {
 	console.log("Flash before setting to res.locals:", req.flash());
 	res.locals.user = req.user;
 	res.locals.isLoggedIn = req.isAuthenticated();
-	res.locals.messages = req.flash(); // This should retrieve flash messages
+	res.locals.messages = req.flash();
 	console.log("Messages in res.locals:", res.locals.messages);
 
-	console.log(res.locals);
 	next();
 });
 
 app.use("/", authroutes);
 app.use("/", postroutes);
+app.use("/", commentroutes);
 
 app.use((req, res) => {
 	res.status(404).render("404", { requestedUrl: req.originalUrl });

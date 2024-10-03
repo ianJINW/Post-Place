@@ -19,6 +19,11 @@ html {
 
 a {
 	text-decoration: wavy;
+	cursor: pointer;
+}
+
+a:hover {
+	transform: scale(1.1);
 }
 
 * {
@@ -424,7 +429,8 @@ footer div {
 	color: #fff;
 }
 
-.post-form {
+.post-form,
+.comment-form {
 	margin: 20px 0;
 	padding: 20px;
 	background-color: #f9f9f9;
@@ -436,12 +442,14 @@ footer div {
 	flex-basis: 200;
 }
 
-.post-form input {
+.post-form input,
+.comment-form input {
 	width: 5dvw;
 	height: 5dvw;
 }
 
-.post-form textarea {
+.post-form textarea,
+.comment-form textarea {
 	width: max-content;
 	margin: 10px 0;
 	border-radius: 4px;
@@ -457,7 +465,8 @@ textarea {
 	width: 4dvw;
 }
 
-.post-form div {
+.post-form div,
+.comment-form div {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -531,4 +540,55 @@ textarea {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.comment {
+	width: 50dvw;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s;
+	border-radius: 15px;
+	box-sizing: border-box;
+}
+
+.comment:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comment img {
+	flex: 1 1;
+	width: min(10dvw, 100px);
+	height: min(10dvw, 100px);
+	clip-path: circle();
+	object-position: center;
+	object-fit: cover;
+
+}
+
+.comment section {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	width: min(50dvw, 600px);
+}
+
+.comment-file {
+	width: min(40dvw, 400px) !important;
+	height: min(40dvw, 400px);
+	object-fit: contain;
+	margin: 10px;
+	clip-path: none !important;
+	padding: 0 !important;
 }
