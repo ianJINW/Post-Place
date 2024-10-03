@@ -1,52 +1,49 @@
 <%- include('partials/header') %>
-
-
-  <!-- Render posts -->
-  <div class="post-list">
-    <a href="/create"><button>Create post</button></a>
-    <br><br>
-    <h1>All Posts</h1>
-
-    <% if (posts && posts.length> 0) { %>
-      <div class="post-c">
-        <% posts.forEach(post=> { %>
-
-          <div class="post-item">
-            <% if (post.user && post.user.username) { %>
-              <div class="dp">
-                <img src="<%= post.user.profileImage %>" alt="Profile Image" class="profile-photo" />
-                <a href="/users/<%- post.user.id %>">
-                  <%= post.user.username %> <br>
-                    <%= post.user.email %>
-
-                </a>
+  <main class="wrapper">
+    <div class="post-item""><% if (post.user && post.user.username) { %>  <div class=" dp"> <img
+        src="<%= post.user.profileImage %>" alt="Profile Image" class="profile-photo" /> <a
+        href="/users/<%- post.user.id %>">
+        <%= post.user.username %><br>
+          <%= post.user.email %>
+      </a> </div>
+    <% } else { %>
+      <p>Anonymous</p>
+      <% } %>
+        <% if (post.mediaType==='image' || post.mediaType==='img' ) { %>
+          <img src="<%= post.mediaPath %>" alt="Post Image">
+          <% } else if (post.mediaType==='video' ) { %>
+            <video controls>
+              <source src="<%= post.mediaPath %>" type="video/mp4">
+            </video>
+            <% } %>
+              <h2>
+                <%= post.content %>
+              </h2>
+              <section> <!-- Comments Section -->
+                <% post.comments.forEach(comment=> { %>
+                  <div class="comment"> <img src="<%= post.user.profileImage %>" alt="<%= post.user.username %>">
+                    <section>
+                      <% if (comment.mediaType==='image' || comment.mediaType==='img' ) { %>
+                        <img class="comment-file" src="<%= comment.mediaPath %>" alt="comment">
+                        <% } else if (comment.mediaType==='video' ) {%>
+                          <video controls>
+                            <source src="<%= comment.mediaPath %>" type="video/mp4">
+                          </video>
+                          <% } %>
+                            <%= comment.comment %>
+                              <small>
+                                <%= comment.createdAt %>
+                              </small>
+                    </section>
+                  </div>
+                  <% }); %>
+              </section>
               </div>
-
-              <% } else { %>
-                <p>Anonymous</p>
-                <% } %>
-
-                  <% if (post.mediaType==='image' || post.mediaType==='img' ) { %>
-                    <img src="<%= post.mediaPath %>" alt="Post Image">
-                    <% } else if (post.mediaType==='video' ) { %>
-                      <video controls>
-                        <source src="<%= post.mediaPath %>" type="video/mp4">
-                        Your browser does not support the video tag.
-                      </video>
-                      <% } %>
-                        <h2>
-                          <%= post.content %>
-                        </h2>
-
-          </div>
-          <% }) %>
-            <% } else { %>
-              <p>No posts available</p>
-              <% } %>
-
-      </div>
-
-  </div>
-
-
+              <form class="comment-form" action="/posts/<%= post.id %>" method="POST" enctype="multipart/form-data">
+                <div class="uploader"> <label for="media">Upload
+                    Image/Video:</label> <input type="file" name="media" id="media"> </div>
+                <div> <label for="comment">Comment:</label> <textarea name="comment" id="comment" required></textarea>
+                </div> <button type="submit">Submit Comment</button>
+              </form>
+  </main>
   <%- include('partials/footer') %>

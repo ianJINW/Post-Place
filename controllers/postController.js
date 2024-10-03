@@ -45,25 +45,44 @@ module.exports = {
 			posts.sort((a, b) => [new Date(b.createdAt) - new Date(a.createdAt)]);
 
 			req.flash("success", "Posts retrieved successfully");
-			res.render("post", { posts: posts });
+			res.render("posts", { posts: posts });
 		} catch (error) {
 			req.flash("error", "Post not created");
 			res.redirect("/posts");
 		}
 	},
-	getPostsById: async (req, res) => {
+	getPostsWithComments: async (req, res) => {
 		const { id } = req.params;
+		console.log(id);
 
 		try {
-			const post = await db.Post.findOne({ where: { id } });
+			const post = await db.Post.findOne({
+				where: { id },
+				include: [
+					{
+						model: db.Comment,
+						as: "comments"
+					},
+					{
+						model: db.User,
+						as: "user"
+					}
+				]
+			});
 			if (post) {
-				res.render("post", { posts: post });
+				console.log(post);
+
+				res.render("post", { post });
 			} else {
 				req.flash("error", "post not found.");
+				console.log("not found");
+
 				res.redirect("/posts");
 			}
 		} catch (error) {
 			req.flash("error", "Failed to retrieve post.");
+			console.error(error);
+
 			res.redirect("/posts");
 		}
 	},
